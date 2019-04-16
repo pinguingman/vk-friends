@@ -1,14 +1,14 @@
 # vk-friends
 Site based on flask, uses vk oauth to get list of user friends.
 
-REQUIREMENTS:
-- python modele flask
-- python module requests
-- created vk app
+## Requirements:
+- python module `flask`
+- python module `requests`
+- vk app `Application ID`, `Secure key` and `Service token`
 
-RUN:
-on Windows 
-  set FLASK_APP=main.py
-  flask run
-on nix 
-  FLASK_APP=main.py flask run
+## Run:
+###### on Windows
+    set FLASK_APP=main.py
+    flask run
+###### on nix
+    FLASK_APP=main.py flask run

@@ -107,7 +107,7 @@ def index():
         # if user already have authorized, get token from db and return page
         user_id = request.cookies.get('user_id')
         access_token = get_access_token_from_db(user_id)
-        friends_list = get_friend_list(access_token, friends_count=100)
+        friends_list = get_friend_list(access_token)
         user_info = get_user_info(access_token)
         return render_template('index.html', friends_list=friends_list, user_info=user_info)
     elif 'code' in args:
