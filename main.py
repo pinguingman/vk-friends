@@ -3,7 +3,7 @@
 
 from flask import Flask, render_template, request, make_response, redirect, url_for
 from vk_urls import *
-from servise import *
+import private
 import requests
 
 app = Flask(__name__)
@@ -11,8 +11,8 @@ app = Flask(__name__)
 
 def get_access_token(code):
     params = {
-        'client_id': CLIENT_ID,
-        'client_secret': CLIENT_SECRET,
+        'client_id': private.CLIENT_ID,
+        'client_secret': private.CLIENT_SECRET,
         'redirect_uri': REDIRECT_URL,
         'code': code
     }
@@ -63,7 +63,7 @@ def get_user_info(access_token):
 
 def get_city_name_by_id(city_ids, lang='ru'):
     params = {
-        'access_token': CLIENT_SERVISE_KEY,
+        'access_token': private.CLIENT_SERVISE_KEY,
         'version': VK_API_VERSION,
         'city_ids': city_ids,
         'lang': lang
@@ -78,7 +78,7 @@ def get_city_name_by_id(city_ids, lang='ru'):
 def create_authorize_url():
     session = requests.Session()
     params = {
-        'client_id': CLIENT_ID,
+        'client_id': private.CLIENT_ID,
         'redirect_uri': REDIRECT_URL,
         'version': VK_API_VERSION,
         'scope': 'friends'

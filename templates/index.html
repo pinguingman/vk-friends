@@ -28,7 +28,8 @@
                     <div class="avatar-wrapper">
                         <a href="{{'https://vk.com/id' ~ friend['user_id']}}"><img class="avatar-friend" src="{{friend['photo_100']}}"></a>
                         {% if friend['online'] == 1 %}
-                        <img class="avatar-online" title="Online" src="{{ url_for('static', filename='online.png') }}"> {% endif %}
+                        <a href="{{'https://vk.com/id' ~ friend['user_id']}}"><img class="avatar-online" title="Online" src="{{ url_for('static', filename='online.png') }}"></a>
+                        {% endif %}
                     </div>
                 </div>
                 <div class="col">
