@@ -5,6 +5,7 @@ from flask import Flask, render_template, request, make_response, redirect, url_
 from vk_urls import *
 import private
 import requests
+import datetime
 
 app = Flask(__name__)
 
@@ -18,7 +19,8 @@ def get_access_token(code):
     }
     response = requests.get(VK_ACCESS_TOKEN_URL, params=params)
     if response.status_code == 200:
-        return response.json()['access_token']
+        response_json = response.json()
+        return (response_json['access_token'], response_json['expires_in'])
     else:
         return False
 
@@ -112,10 +114,11 @@ def index():
         return render_template('index.html', friends_list=friends_list, user_info=user_info)
     elif 'code' in args:
         # if its vk-oauth redirect - write access token to db, redirect to main page
-        access_token = get_access_token(args['code'])
+        access_token, expires_in = get_access_token(args['code'])
         user_id = set_access_token_to_db(access_token)
         resp = make_response(redirect('/'))
-        resp.set_cookie('user_id', user_id)
+        expires = datetime.datetime.now() + datetime.timedelta(0, int(expires_in))
+        resp.set_cookie('user_id', user_id, expires=expires)
         return resp
     else:
         # redirect to confirm authorize page
